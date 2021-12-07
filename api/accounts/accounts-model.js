@@ -4,35 +4,31 @@ const getAll = () => {
   return database("accounts");
 }
 
-async function getById(id) {
-  const result = await database("accounts")
-    .where("id", id).first()
-
-  return result;
+const getById = id => {
+  return database("accounts")
+    .where("id", id)
+    .first()
 }
 
-async function create(account) {
+const create = async account => {
   const [id] = await database("accounts")
     .insert(account)
 
-  return getById(id);
+  return getById(id)
 }
 
-async function updateById(id, account) {
+const updateById = async (id, account) => {
   await database("accounts")
     .where("id", id)
     .update(account)
-  
-  return getById(id);
+
+  return getById(id)
 }
 
-async function deleteById(id) {
-  const toDelete = await getById(id)
-  await database("account")
-    .where( { id } )
+const deleteById = id => {
+  return database("accounts")
+    .where("id", id)
     .del()
-
-  return toDelete;
 }
 
 module.exports = {
